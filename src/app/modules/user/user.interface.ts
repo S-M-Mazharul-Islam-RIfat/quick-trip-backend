@@ -35,4 +35,3 @@ export interface IUser {
    bookings?: Types.ObjectId[];
    guides?: Types.ObjectId[];
 }
->>>>>>> eacbde1 (added part-2)
