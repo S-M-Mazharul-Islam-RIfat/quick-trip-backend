@@ -18,7 +18,7 @@ const updateUser = catchAsync(async (req: Request, res: Response, next: NextFunc
    const userId = req.params.id;
    const verifiedToken = req.user;
    const payload = req.body;
-   const user = await UserServices.updateUser(userId as string, payload, verifiedToken);
+   const user = await UserServices.updateUser(userId as string, payload, verifiedToken!);
    sendResponse(res, {
       statusCode: status.CREATED,
       success: true,
