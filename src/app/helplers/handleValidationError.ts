@@ -20,4 +20,4 @@ export const handlerValidationError = (err: mongoose.Error.ValidationError): TGe
    }
 
 
-}
+}  
