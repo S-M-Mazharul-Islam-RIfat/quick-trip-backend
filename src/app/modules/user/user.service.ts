@@ -8,7 +8,6 @@ import { JwtPayload } from "jsonwebtoken";
 
 const createUser = async (payload: Partial<IUser>) => {
    const { email, password, ...rest } = payload;
-
    const isUserExist = await User.findOne({ email });
 
    if (isUserExist) {
@@ -29,7 +28,6 @@ const createUser = async (payload: Partial<IUser>) => {
 }
 
 const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
-
    const ifUserExist = await User.findById(userId);
 
    if (!ifUserExist) {
@@ -48,7 +46,6 @@ const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken:
 
    return newUpdatedUser
 }
-
 
 const getAllUsers = async () => {
    const users = await User.find({});
