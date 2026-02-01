@@ -21,12 +21,17 @@ const checkAuth = (...authRoles: string[]) => async (req: Request, res: Response
       if (!isUserExist) {
          throw new AppError(status.BAD_REQUEST, "User does not exist")
       }
+
+      if (isUserExist.isVerified) {
+         throw new AppError(status.BAD_REQUEST, "User is not verified")
+      }
       if (isUserExist.isActive === IsActive.BLOCKED || isUserExist.isActive === IsActive.INACTIVE) {
          throw new AppError(status.BAD_REQUEST, `User is ${isUserExist.isActive}`)
       }
       if (isUserExist.isDeleted) {
          throw new AppError(status.BAD_REQUEST, "User is deleted")
       }
+
       if (!authRoles.includes(verifiedToken.role)) {
          throw new AppError(status.UNAUTHORIZED, "You are not authorized");
       }
