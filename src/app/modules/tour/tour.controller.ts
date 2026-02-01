@@ -3,9 +3,14 @@ import catchAsync from '../../utils/catchAsync';
 import { TourServices } from './tour.services';
 import { sendResponse } from '../../utils/sendResponse';
 import status from 'http-status';
+import { ITour } from './tour.interface';
 
 const createTour = catchAsync(async (req: Request, res: Response) => {
-   const result = await TourServices.createTour(req.body);
+   const payload: ITour = {
+      ...req.body,
+      images: (req.files as Express.Multer.File[]).map(file => file.path)
+   }
+   const result = await TourServices.createTour(payload);
    sendResponse(res, {
       statusCode: status.CREATED,
       success: true,
@@ -27,7 +32,11 @@ const getAllTours = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateTour = catchAsync(async (req: Request, res: Response) => {
-   const result = await TourServices.updateTour(req.params.id as string, req.body);
+   const payload: ITour = {
+      ...req.body,
+      images: (req.files as Express.Multer.File[]).map(file => file.path)
+   }
+   const result = await TourServices.updateTour(req.params.id as string, payload);
    sendResponse(res, {
       statusCode: status.OK,
       success: true,
